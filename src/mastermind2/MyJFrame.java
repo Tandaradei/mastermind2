@@ -105,11 +105,10 @@ public class MyJFrame extends javax.swing.JFrame {
                         .addComponent(newWindowJoinCheckbox)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(joinButton)
                             .addComponent(autoModeCheckbox)
                             .addComponent(nameLabel)
-                            .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -120,7 +119,8 @@ public class MyJFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(portLabel)
-                                    .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nameTextField))
                         .addContainerGap(71, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,20 +151,20 @@ public class MyJFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Join", jPanel1);
 
         codeLengthLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        codeLengthLabel.setText("Codelänge");
+        codeLengthLabel.setText("Code length");
 
         codeLengthSpinner.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         codeLengthSpinner.setModel(new javax.swing.SpinnerNumberModel(4, 2, 15, 1));
         codeLengthSpinner.setValue(4);
 
         colorCountLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        colorCountLabel.setText("Farbanzahl");
+        colorCountLabel.setText("Colors");
 
         colorCountSpinner.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         colorCountSpinner.setModel(new javax.swing.SpinnerNumberModel(4, 2, 15, 1));
 
         codeLengthRandomCheckbox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        codeLengthRandomCheckbox.setText("Zufällig");
+        codeLengthRandomCheckbox.setText("Random");
         codeLengthRandomCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 codeLengthRandomCheckboxStateChanged(evt);
@@ -172,7 +172,7 @@ public class MyJFrame extends javax.swing.JFrame {
         });
 
         colorCountRandomCheckbox.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        colorCountRandomCheckbox.setText("Zufällig");
+        colorCountRandomCheckbox.setText("Random");
         colorCountRandomCheckbox.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 colorCountRandomCheckboxStateChanged(evt);
@@ -180,15 +180,20 @@ public class MyJFrame extends javax.swing.JFrame {
         });
 
         jTextField4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        jTextField4.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         jTextField4.setText("50004");
+        jTextField4.setMinimumSize(new java.awt.Dimension(41, 22));
+        jTextField4.setPreferredSize(new java.awt.Dimension(41, 22));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Port");
 
         tryCountLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        tryCountLabel.setText("Versuche (0 = unendlich)");
+        tryCountLabel.setText("Attempts (0 = unlimited)");
 
+        tryCountSpiner.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         tryCountSpiner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        tryCountSpiner.setPreferredSize(new java.awt.Dimension(41, 22));
 
         hostButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         hostButton.setText("Host");
@@ -208,19 +213,18 @@ public class MyJFrame extends javax.swing.JFrame {
                     .addComponent(hostButton)
                     .addComponent(jLabel5)
                     .addComponent(tryCountLabel)
-                    .addComponent(tryCountSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(colorCountLabel)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(colorCountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(colorCountSpinner)
+                            .addComponent(codeLengthLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(codeLengthSpinner, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(colorCountRandomCheckbox))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(codeLengthLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(codeLengthSpinner))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(codeLengthRandomCheckbox))
-                    .addComponent(colorCountLabel))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(colorCountRandomCheckbox)
+                            .addComponent(codeLengthRandomCheckbox)))
+                    .addComponent(tryCountSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -252,7 +256,7 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(newWindowHostCheckbox)
                 .addGap(13, 13, 13)
                 .addComponent(hostButton)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         colorCountSpinner.getAccessibleContext().setAccessibleName("");
