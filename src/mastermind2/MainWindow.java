@@ -10,15 +10,20 @@ package mastermind2;
  *
  * @author laurin.agostini
  */
+import java.awt.Color;
 import java.awt.event.WindowEvent;
+import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 
-public class MyJFrame extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form MyJFrame
      */
-    public MyJFrame() {
+    public MainWindow() {
         initComponents();
+        playingField.setVisible(false);
     }
 
     /**
@@ -30,8 +35,9 @@ public class MyJFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
+        tabbedPane = new javax.swing.JTabbedPane();
+        joinPanel = new javax.swing.JPanel();
         nameLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         ipAdressTextField = new javax.swing.JTextField();
@@ -42,7 +48,7 @@ public class MyJFrame extends javax.swing.JFrame {
         autoModeCheckbox = new javax.swing.JCheckBox();
         joinButton = new javax.swing.JButton();
         newWindowJoinCheckbox = new javax.swing.JCheckBox();
-        jPanel2 = new javax.swing.JPanel();
+        hostPanel = new javax.swing.JPanel();
         codeLengthLabel = new javax.swing.JLabel();
         codeLengthSpinner = new javax.swing.JSpinner();
         colorCountLabel = new javax.swing.JLabel();
@@ -53,18 +59,23 @@ public class MyJFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         tryCountLabel = new javax.swing.JLabel();
         tryCountSpiner = new javax.swing.JSpinner();
-        jSeparator1 = new javax.swing.JSeparator();
+        seperator = new javax.swing.JSeparator();
         hostButton = new javax.swing.JToggleButton();
         newWindowHostCheckbox = new javax.swing.JCheckBox();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        playingField = new javax.swing.JPanel();
+        sendCodeButton = new javax.swing.JButton();
+        colorChooserPanel = new javax.swing.JPanel();
+        colorChooserPrefab = new javax.swing.JComboBox<>();
+        quitGameButton = new javax.swing.JButton();
+        menuBar = new javax.swing.JMenuBar();
+        exitMenuButton = new javax.swing.JMenu();
+        helpMenuButton = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Mastermind");
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        tabbedPane.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+        tabbedPane.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
 
         nameLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         nameLabel.setText("Name");
@@ -94,48 +105,48 @@ public class MyJFrame extends javax.swing.JFrame {
         newWindowJoinCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newWindowJoinCheckbox.setText("Open in new window");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout joinPanelLayout = new javax.swing.GroupLayout(joinPanel);
+        joinPanel.setLayout(joinPanelLayout);
+        joinPanelLayout.setHorizontalGroup(
+            joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(joinPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(joinPanelLayout.createSequentialGroup()
                         .addComponent(newWindowJoinCheckbox)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(joinPanelLayout.createSequentialGroup()
+                        .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(joinButton)
                             .addComponent(autoModeCheckbox)
                             .addComponent(nameLabel)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(joinPanelLayout.createSequentialGroup()
+                                .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(joinPanelLayout.createSequentialGroup()
                                         .addComponent(ipAdressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(colonLabel))
                                     .addComponent(ipAdressLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(portLabel)
                                     .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(nameTextField))
-                        .addContainerGap(71, Short.MAX_VALUE))))
+                        .addContainerGap(94, Short.MAX_VALUE))))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        joinPanelLayout.setVerticalGroup(
+            joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(joinPanelLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(nameLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipAdressLabel)
                     .addComponent(portLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ipAdressTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(colonLabel))
@@ -148,7 +159,7 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Join", jPanel1);
+        tabbedPane.addTab("Join", joinPanel);
 
         codeLengthLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         codeLengthLabel.setText("Code length");
@@ -197,49 +208,54 @@ public class MyJFrame extends javax.swing.JFrame {
 
         hostButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         hostButton.setText("Host");
+        hostButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hostButtonMouseClicked(evt);
+            }
+        });
 
         newWindowHostCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newWindowHostCheckbox.setText("Open in new window");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout hostPanelLayout = new javax.swing.GroupLayout(hostPanel);
+        hostPanel.setLayout(hostPanelLayout);
+        hostPanelLayout.setHorizontalGroup(
+            hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(seperator)
+            .addGroup(hostPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(newWindowHostCheckbox)
                     .addComponent(hostButton)
                     .addComponent(jLabel5)
                     .addComponent(tryCountLabel)
                     .addComponent(colorCountLabel)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(hostPanelLayout.createSequentialGroup()
+                        .addGroup(hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(colorCountSpinner)
                             .addComponent(codeLengthLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(codeLengthSpinner, javax.swing.GroupLayout.Alignment.LEADING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(colorCountRandomCheckbox)
                             .addComponent(codeLengthRandomCheckbox)))
                     .addComponent(tryCountSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        hostPanelLayout.setVerticalGroup(
+            hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(hostPanelLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(codeLengthLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codeLengthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codeLengthRandomCheckbox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(colorCountLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(colorCountSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(colorCountRandomCheckbox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -247,7 +263,7 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tryCountSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(seperator, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -256,61 +272,154 @@ public class MyJFrame extends javax.swing.JFrame {
                 .addComponent(newWindowHostCheckbox)
                 .addGap(13, 13, 13)
                 .addComponent(hostButton)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         colorCountSpinner.getAccessibleContext().setAccessibleName("");
         colorCountSpinner.getAccessibleContext().setAccessibleDescription("");
 
-        jTabbedPane1.addTab("Host", jPanel2);
+        tabbedPane.addTab("Host", hostPanel);
 
-        jMenuBar1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        sendCodeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        sendCodeButton.setText("Send");
 
-        jMenu1.setText("Exit");
-        jMenu1.setToolTipText("Exit the game");
-        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+        colorChooserPanel.setBackground(new java.awt.Color(153, 153, 153));
+
+        colorChooserPrefab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout colorChooserPanelLayout = new javax.swing.GroupLayout(colorChooserPanel);
+        colorChooserPanel.setLayout(colorChooserPanelLayout);
+        colorChooserPanelLayout.setHorizontalGroup(
+            colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(colorChooserPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(285, Short.MAX_VALUE))
+        );
+        colorChooserPanelLayout.setVerticalGroup(
+            colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorChooserPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        quitGameButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        quitGameButton.setText("Quit Game");
+        quitGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quitGameButtonMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout playingFieldLayout = new javax.swing.GroupLayout(playingField);
+        playingField.setLayout(playingFieldLayout);
+        playingFieldLayout.setHorizontalGroup(
+            playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(playingFieldLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(playingFieldLayout.createSequentialGroup()
+                        .addComponent(sendCodeButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(colorChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
+                    .addContainerGap(267, Short.MAX_VALUE)
+                    .addComponent(quitGameButton)
+                    .addContainerGap()))
+        );
+        playingFieldLayout.setVerticalGroup(
+            playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
+                .addContainerGap(311, Short.MAX_VALUE)
+                .addComponent(colorChooserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(sendCodeButton)
+                .addContainerGap())
+            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
+                    .addContainerGap(371, Short.MAX_VALUE)
+                    .addComponent(quitGameButton)
+                    .addContainerGap()))
+        );
+
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(playingField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 422, Short.MAX_VALUE)
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tabbedPane))
+            .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(mainPanelLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(playingField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        menuBar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        exitMenuButton.setText("Exit");
+        exitMenuButton.setToolTipText("Exit the game");
+        exitMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuExitClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu1);
+        menuBar.add(exitMenuButton);
 
-        jMenu2.setText("Help");
-        jMenu2.setToolTipText("Show a help page");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+        helpMenuButton.setText("Help");
+        helpMenuButton.setToolTipText("Show a help page");
+        helpMenuButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuHelpClicked(evt);
             }
         });
-        jMenuBar1.add(jMenu2);
+        menuBar.add(helpMenuButton);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuExitClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuExitClicked
-        System.out.println("Exit clicked");
-        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
-        
+        this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING)); 
     }//GEN-LAST:event_jMenuExitClicked
 
     private void jMenuHelpClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuHelpClicked
-        System.out.println("Help clicked");
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HelpPage().setVisible(true);
+                new HelpWindow().setVisible(true);
             }
         });
     }//GEN-LAST:event_jMenuHelpClicked
@@ -323,6 +432,52 @@ public class MyJFrame extends javax.swing.JFrame {
         colorCountSpinner.setEnabled(!colorCountRandomCheckbox.isSelected());
     }//GEN-LAST:event_colorCountRandomCheckboxStateChanged
 
+    private void hostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostButtonMouseClicked
+        activatePlayingField();
+    }//GEN-LAST:event_hostButtonMouseClicked
+
+    private void quitGameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitGameButtonMouseClicked
+        deactivatePlayingField();
+    }//GEN-LAST:event_quitGameButtonMouseClicked
+
+    private void initColorChooserPrefab(){
+        colorChooserPrefab.removeAllItems();
+        int colorCount = (Integer) colorCountSpinner.getValue();
+        //Color[] colors={Color.white,Color.red,Color.blue,Color.green};
+        //colorChooserPrefab.setModel(new DefaultComboBoxModel<Color>());
+        for(int i = 0; i < colorCount; ++i){
+            colorChooserPrefab.addItem("Farbe" + (i+1));
+        }
+        //colorChooserPrefab.setRenderer(new ComboBoxRenderer());
+        colorChooserPrefab.revalidate();
+    }
+    
+    private JComboBox getJComboBoxClone(JComboBox prefab){
+        JComboBox colorChooserClone = new JComboBox(prefab.getModel());
+        colorChooserClone.setLocation(prefab.getX(), prefab.getY());
+        colorChooserClone.setSize(prefab.getSize());
+        colorChooserClone.setEditable(prefab.isEditable());
+        colorChooserClone.setRenderer(prefab.getRenderer());
+        return colorChooserClone;
+    }
+    
+    private void activatePlayingField(){
+        initColorChooserPrefab();
+        int codeLength = (Integer) codeLengthSpinner.getValue();
+        for(int i = 0; i <  codeLength - 1; ++i){
+            JComboBox colorChooserClone = getJComboBoxClone(colorChooserPrefab);
+            colorChooserClone.setLocation(colorChooserClone.getLocation().x + (i+1) * colorChooserClone.getSize().width + 5, colorChooserClone.getLocation().y);
+            colorChooserPanel.add(colorChooserClone);
+        }
+        tabbedPane.setVisible(false);
+        playingField.setVisible(true);
+        colorChooserPanel.revalidate();
+        colorChooserPanel.repaint();
+    }
+    private void deactivatePlayingField(){
+        playingField.setVisible(false);
+        tabbedPane.setVisible(true);
+    }
     /**
      * @param args the command line arguments
      */
@@ -340,20 +495,21 @@ public class MyJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MyJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MyJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MyJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MyJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MyJFrame().setVisible(true);
+                new MainWindow().setVisible(true);
             }
         });
     }
@@ -364,28 +520,34 @@ public class MyJFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox codeLengthRandomCheckbox;
     private javax.swing.JSpinner codeLengthSpinner;
     private javax.swing.JLabel colonLabel;
+    private javax.swing.JPanel colorChooserPanel;
+    private javax.swing.JComboBox<String> colorChooserPrefab;
     private javax.swing.JLabel colorCountLabel;
     private javax.swing.JCheckBox colorCountRandomCheckbox;
     private javax.swing.JSpinner colorCountSpinner;
+    private javax.swing.JMenu exitMenuButton;
+    private javax.swing.JMenu helpMenuButton;
     private javax.swing.JToggleButton hostButton;
+    private javax.swing.JPanel hostPanel;
     private javax.swing.JLabel ipAdressLabel;
     private javax.swing.JTextField ipAdressTextField;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JButton joinButton;
+    private javax.swing.JPanel joinPanel;
+    private javax.swing.JPanel mainPanel;
+    private javax.swing.JMenuBar menuBar;
     private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JCheckBox newWindowHostCheckbox;
     private javax.swing.JCheckBox newWindowJoinCheckbox;
+    private javax.swing.JPanel playingField;
     private javax.swing.JLabel portLabel;
     private javax.swing.JTextField portTextField;
+    private javax.swing.JButton quitGameButton;
+    private javax.swing.JButton sendCodeButton;
+    private javax.swing.JSeparator seperator;
+    private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JLabel tryCountLabel;
     private javax.swing.JSpinner tryCountSpiner;
     // End of variables declaration//GEN-END:variables

@@ -11,12 +11,12 @@ import java.awt.event.WindowEvent;
  *
  * @author laurin.agostini
  */
-public class HelpPage extends javax.swing.JFrame {
+public class HelpWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form HelpPage
      */
-    public HelpPage() {
+    public HelpWindow() {
         initComponents();
     }
 
@@ -80,7 +80,7 @@ public class HelpPage extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HelpPage().setVisible(true);
+                new HelpWindow().setVisible(true);
             }
         });
     }*/
