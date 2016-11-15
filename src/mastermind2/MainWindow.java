@@ -439,7 +439,13 @@ public class MainWindow extends javax.swing.JFrame {
     private void quitGameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitGameButtonMouseClicked
         deactivatePlayingField();
     }//GEN-LAST:event_quitGameButtonMouseClicked
-
+    
+    private void removeColorChooserClones(){
+        int count = colorChooserPanel.getComponentCount();
+        for(int i = 1; i < count; ++i){
+            colorChooserPanel.remove(1);
+        }
+    }
     private void initColorChooserPrefab(){
         colorChooserPrefab.removeAllItems();
         int colorCount = (Integer) colorCountSpinner.getValue();
@@ -462,6 +468,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void activatePlayingField(){
+        removeColorChooserClones();
         initColorChooserPrefab();
         int codeLength = (Integer) codeLengthSpinner.getValue();
         for(int i = 0; i <  codeLength - 1; ++i){
