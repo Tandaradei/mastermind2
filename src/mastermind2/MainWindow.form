@@ -77,7 +77,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="397" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="401" max="32767" attributes="0"/>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Component id="tabbedPane" alignment="1" max="32767" attributes="0"/>
               </Group>
@@ -158,7 +158,7 @@
                                       </Group>
                                       <Component id="nameTextField" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="94" max="32767" attributes="0"/>
+                                  <EmptySpace pref="98" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -308,7 +308,7 @@
                               <Component id="tryCountSpiner" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
                               <Component id="jTextField4" alignment="0" min="-2" pref="67" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="126" max="32767" attributes="0"/>
+                          <EmptySpace pref="130" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -490,14 +490,12 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="sendCodeButton" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="colorChooserPanel" alignment="0" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="sendCodeButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="305" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="colorChooserPanel" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -549,7 +547,7 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="colorChooserPrefab" min="-2" pref="65" max="-2" attributes="0"/>
-                          <EmptySpace pref="285" max="32767" attributes="0"/>
+                          <EmptySpace pref="314" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

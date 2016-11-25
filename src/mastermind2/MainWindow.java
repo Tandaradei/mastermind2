@@ -10,11 +10,10 @@ package mastermind2;
  *
  * @author laurin.agostini
  */
-import java.awt.Color;
 import java.awt.event.WindowEvent;
 import javax.swing.JComboBox;
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -132,7 +131,7 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(portLabel)
                                     .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(nameTextField))
-                        .addContainerGap(94, Short.MAX_VALUE))))
+                        .addContainerGap(98, Short.MAX_VALUE))))
         );
         joinPanelLayout.setVerticalGroup(
             joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,7 +240,7 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(codeLengthRandomCheckbox)))
                     .addComponent(tryCountSpiner, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         hostPanelLayout.setVerticalGroup(
             hostPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -294,7 +293,7 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(colorChooserPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(314, Short.MAX_VALUE))
         );
         colorChooserPanelLayout.setVerticalGroup(
             colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,12 +317,11 @@ public class MainWindow extends javax.swing.JFrame {
             playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playingFieldLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(playingFieldLayout.createSequentialGroup()
-                        .addComponent(sendCodeButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(colorChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(sendCodeButton)
+                .addContainerGap(305, Short.MAX_VALUE))
+            .addGroup(playingFieldLayout.createSequentialGroup()
+                .addComponent(colorChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
                     .addContainerGap(267, Short.MAX_VALUE)
@@ -349,7 +347,7 @@ public class MainWindow extends javax.swing.JFrame {
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 397, Short.MAX_VALUE)
+            .addGap(0, 401, Short.MAX_VALUE)
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(tabbedPane, javax.swing.GroupLayout.Alignment.TRAILING))
             .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,7 +510,23 @@ public class MainWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+        UIManager.setLookAndFeel(
+            UIManager.getCrossPlatformLookAndFeelClassName());
+        } 
+        catch (UnsupportedLookAndFeelException e) {
+           // handle exception
+        }
+        catch (ClassNotFoundException e) {
+           // handle exception
+        }
+        catch (InstantiationException e) {
+           // handle exception
+        }
+        catch (IllegalAccessException e) {
+           // handle exception
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
