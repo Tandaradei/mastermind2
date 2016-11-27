@@ -50,6 +50,7 @@ public class MainWindow extends javax.swing.JFrame {
         autoModeCheckbox = new javax.swing.JCheckBox();
         joinButton = new javax.swing.JButton();
         newWindowJoinCheckbox = new javax.swing.JCheckBox();
+        aiEnabledCheckbox = new javax.swing.JCheckBox();
         hostPanel = new javax.swing.JPanel();
         codeLengthLabel = new javax.swing.JLabel();
         codeLengthSpinner = new javax.swing.JSpinner();
@@ -108,6 +109,10 @@ public class MainWindow extends javax.swing.JFrame {
 
         newWindowJoinCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newWindowJoinCheckbox.setText("Open in new window");
+        newWindowJoinCheckbox.setEnabled(false);
+
+        aiEnabledCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        aiEnabledCheckbox.setText("AI - Mode");
 
         javax.swing.GroupLayout joinPanelLayout = new javax.swing.GroupLayout(joinPanel);
         joinPanel.setLayout(joinPanelLayout);
@@ -116,9 +121,6 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(joinPanelLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(joinPanelLayout.createSequentialGroup()
-                        .addComponent(newWindowJoinCheckbox)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(joinPanelLayout.createSequentialGroup()
                         .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(joinButton)
@@ -136,7 +138,12 @@ public class MainWindow extends javax.swing.JFrame {
                                     .addComponent(portLabel)
                                     .addComponent(portTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(nameTextField))
-                        .addContainerGap(98, Short.MAX_VALUE))))
+                        .addContainerGap(98, Short.MAX_VALUE))
+                    .addGroup(joinPanelLayout.createSequentialGroup()
+                        .addGroup(joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(aiEnabledCheckbox)
+                            .addComponent(newWindowJoinCheckbox))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         joinPanelLayout.setVerticalGroup(
             joinPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,9 +165,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addComponent(autoModeCheckbox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(newWindowJoinCheckbox)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(aiEnabledCheckbox)
+                .addGap(26, 26, 26)
                 .addComponent(joinButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         tabbedPane.addTab("Join", joinPanel);
@@ -220,6 +229,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         newWindowHostCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newWindowHostCheckbox.setText("Open in new window");
+        newWindowHostCheckbox.setEnabled(false);
 
         javax.swing.GroupLayout hostPanelLayout = new javax.swing.GroupLayout(hostPanel);
         hostPanel.setLayout(hostPanelLayout);
@@ -412,6 +422,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     public void sendCode(String code){
         System.out.println(code);
+        
     }
     
     private String generateCode(int codeLength, String colors){
@@ -423,11 +434,27 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void activatePlayingField(){
-        int codeLength = (Integer) codeLengthSpinner.getValue();
-        int colorCount = (Integer) colorCountSpinner.getValue();
+        int codeLength = (codeLengthRandomCheckbox.isSelected()) ? 
+                                                    2 + (new Random().nextInt(14)):
+                                                    (Integer) codeLengthSpinner.getValue();
+        int colorCount = (codeLengthRandomCheckbox.isSelected()) ? 
+                                                    2 + (new Random().nextInt(14)):
+                                                    (Integer) colorCountSpinner.getValue();
         String colors = "0123456789abcdef".substring(0, colorCount);
         tabbedPane.setVisible(false);
         playingField.setVisible(true);
+        String originalCode = generateCode(codeLength, colors);
+        if(aiEnabledCheckbox.isSelected()){
+            System.out.println("AI started to guess " + originalCode);
+            MastermindAI mmAI = new MastermindAI(codeLength, colors);
+            String code = "";
+            String response = null;
+            do{
+                code = mmAI.next(response);
+                response = ServerController.checkKey(originalCode, code);
+                System.out.println(code + " -> " + response);
+            }while(response.contains("W") || response.length() < codeLength);
+        }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CodeChooserWindow(me, codeLength, colors, generateCode(codeLength, colors)).setVisible(true);
@@ -492,6 +519,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox aiEnabledCheckbox;
     private javax.swing.JCheckBox autoModeCheckbox;
     private javax.swing.JLabel codeLengthLabel;
     private javax.swing.JCheckBox codeLengthRandomCheckbox;

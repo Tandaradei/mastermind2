@@ -5,6 +5,7 @@
  */
 package mastermind2;
 
+import java.awt.Color;
 import java.awt.event.WindowEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         initComponents();
         initColorChooser(code);
         this.setSize((codeLength+1) * (colorChooserPrefab.getSize().width + 5), this.getSize().height);
+        
     }
 
     /**
@@ -46,9 +48,15 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         okButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Choose your code");
         setResizable(false);
 
+        colorChooserPrefab.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         colorChooserPrefab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3" }));
+        colorChooserPrefab.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        colorChooserPrefab.setMaximumSize(new java.awt.Dimension(35, 25));
+        colorChooserPrefab.setMinimumSize(new java.awt.Dimension(35, 25));
+        colorChooserPrefab.setPreferredSize(new java.awt.Dimension(35, 25));
 
         javax.swing.GroupLayout colorChooserPanelLayout = new javax.swing.GroupLayout(colorChooserPanel);
         colorChooserPanel.setLayout(colorChooserPanelLayout);
@@ -57,14 +65,13 @@ public class CodeChooserWindow extends javax.swing.JFrame {
             .addGroup(colorChooserPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(colorChooserPrefab, 0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(304, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         colorChooserPanelLayout.setVerticalGroup(
             colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(colorChooserPanelLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
 
         colorChooserNumberLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -82,7 +89,7 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         numbersPanelLayout.setVerticalGroup(
             numbersPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, numbersPanelLayout.createSequentialGroup()
-                .addGap(0, 19, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addComponent(colorChooserNumberLabel))
         );
 
@@ -111,13 +118,13 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(numbersPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(colorChooserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(okButton)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         pack();
@@ -132,28 +139,16 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_okButtonMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
 
-    private void initColorChooserPrefab(String color){
-        colorChooserPrefab.setRenderer(new ComboBoxRenderer());
-        colorChooserPrefab.removeAllItems();
+    private void initColorChooser(JComboBox colorChooser, String color){
+        colorChooser.setRenderer(new ComboBoxRenderer());
+        colorChooser.removeAllItems();
         for(int i = 0; i < colors.length(); ++i){
-            colorChooserPrefab.addItem("" + colors.charAt(i));
+            colorChooser.addItem("" + colors.charAt(i));
         }
-        colorChooserPrefab.setSelectedItem(color);
-        //colorChooserPrefab.setRenderer(new ComboBoxRenderer());
-        //colorChooserPrefab.revalidate();
-    }
-    
-    private JComboBox getJComboBoxClone(JComboBox prefab){
-        JComboBox colorChooserClone = new JComboBox(prefab.getModel());
-        colorChooserClone.setLocation(prefab.getX(), prefab.getY());
-        colorChooserClone.setSize(prefab.getSize());
-        colorChooserClone.setEditable(prefab.isEditable());
-        colorChooserClone.setRenderer(prefab.getRenderer());
-        return colorChooserClone;
+        colorChooser.setSelectedItem(color);
+        //colorChooser.setBackground(ComboBoxRenderer.charToColor(color.charAt(0)));
+        colorChooser.revalidate();
     }
     
     private String intToString(int i){
@@ -163,7 +158,7 @@ public class CodeChooserWindow extends javax.swing.JFrame {
     }
     
     private void initColorChooser(String code){
-        initColorChooserPrefab("" + code.charAt(0));
+        initColorChooser(colorChooserPrefab, "" + code.charAt(0));
         System.out.println(colorChooserPanel.getComponent(0));
         for(int i = 1; i <  codeLength; ++i){
             JLabel labelClone = new JLabel(intToString(i+1));
@@ -173,12 +168,17 @@ public class CodeChooserWindow extends javax.swing.JFrame {
             
             numbersPanel.add(labelClone);
             
-            JComboBox colorChooserClone = getJComboBoxClone(colorChooserPrefab);
+            JComboBox colorChooserClone = new JComboBox();
+            initColorChooser(colorChooserClone, "" + code.charAt(i));
+            colorChooserClone.setSize(colorChooserPrefab.getSize());
+            colorChooserClone.setEditable(colorChooserPrefab.isEditable());
+            colorChooserClone.setRenderer(colorChooserPrefab.getRenderer());
+            colorChooserClone.setFont(colorChooserPrefab.getFont());
             colorChooserClone.setLocation(colorChooserPrefab.getLocation().x + i * colorChooserPrefab.getSize().width +(i-1)*5 + 5, colorChooserPrefab.getLocation().y);
-            colorChooserClone.setSelectedItem("" + code.charAt(i));
+            
             colorChooserPanel.add(colorChooserClone);
             
-            System.out.println(colorChooserPanel.getComponent(i-1));
+        System.out.println(colorChooserPanel.getComponent(i));
         }
         colorChooserPanel.revalidate();
         

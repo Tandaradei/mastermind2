@@ -28,7 +28,7 @@ class ComboBoxRenderer extends JLabel implements ListCellRenderer {
      * to the selected value and returns the label, set up
      * to display the text and image.
      */
-        private Color charToColor(char key){
+    public static Color charToColor(char key){
         switch(key){
             case '0':
                 return Color.RED;
@@ -73,8 +73,6 @@ class ComboBoxRenderer extends JLabel implements ListCellRenderer {
                                        int index,
                                        boolean isSelected,
                                        boolean cellHasFocus) {
-        //Get the selected index. (The index param isn't
-        //always valid, so just use the value.)
         setText((String)value);
         
         setBackground(charToColor(((String)value).charAt(0)));
