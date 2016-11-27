@@ -11,12 +11,15 @@ package mastermind2;
  * @author laurin.agostini
  */
 import java.awt.event.WindowEvent;
+import java.util.Random;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class MainWindow extends javax.swing.JFrame {
-
+    
+    public boolean client = false;
+    MainWindow me = this;
     /**
      * Creates new form MyJFrame
      */
@@ -62,9 +65,6 @@ public class MainWindow extends javax.swing.JFrame {
         hostButton = new javax.swing.JToggleButton();
         newWindowHostCheckbox = new javax.swing.JCheckBox();
         playingField = new javax.swing.JPanel();
-        sendCodeButton = new javax.swing.JButton();
-        colorChooserPanel = new javax.swing.JPanel();
-        colorChooserPrefab = new javax.swing.JComboBox<>();
         quitGameButton = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         exitMenuButton = new javax.swing.JMenu();
@@ -100,6 +100,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         joinButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         joinButton.setText("Join");
+        joinButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                joinButtonActionPerformed(evt);
+            }
+        });
 
         newWindowJoinCheckbox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         newWindowJoinCheckbox.setText("Open in new window");
@@ -279,30 +284,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         tabbedPane.addTab("Host", hostPanel);
 
-        sendCodeButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        sendCodeButton.setText("Send");
-
-        colorChooserPanel.setBackground(new java.awt.Color(153, 153, 153));
-
-        colorChooserPrefab.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        javax.swing.GroupLayout colorChooserPanelLayout = new javax.swing.GroupLayout(colorChooserPanel);
-        colorChooserPanel.setLayout(colorChooserPanelLayout);
-        colorChooserPanelLayout.setHorizontalGroup(
-            colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(colorChooserPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(314, Short.MAX_VALUE))
-        );
-        colorChooserPanelLayout.setVerticalGroup(
-            colorChooserPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorChooserPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(colorChooserPrefab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         quitGameButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         quitGameButton.setText("Quit Game");
         quitGameButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -315,32 +296,17 @@ public class MainWindow extends javax.swing.JFrame {
         playingField.setLayout(playingFieldLayout);
         playingFieldLayout.setHorizontalGroup(
             playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(playingFieldLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(sendCodeButton)
-                .addContainerGap(305, Short.MAX_VALUE))
-            .addGroup(playingFieldLayout.createSequentialGroup()
-                .addComponent(colorChooserPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
-                    .addContainerGap(267, Short.MAX_VALUE)
-                    .addComponent(quitGameButton)
-                    .addContainerGap()))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
+                .addContainerGap(276, Short.MAX_VALUE)
+                .addComponent(quitGameButton)
+                .addContainerGap())
         );
         playingFieldLayout.setVerticalGroup(
             playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
-                .addContainerGap(311, Short.MAX_VALUE)
-                .addComponent(colorChooserPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(sendCodeButton)
+                .addContainerGap(371, Short.MAX_VALUE)
+                .addComponent(quitGameButton)
                 .addContainerGap())
-            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, playingFieldLayout.createSequentialGroup()
-                    .addContainerGap(371, Short.MAX_VALUE)
-                    .addComponent(quitGameButton)
-                    .addContainerGap()))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -431,53 +397,43 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_colorCountRandomCheckboxStateChanged
 
     private void hostButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hostButtonMouseClicked
+        client = false;
         activatePlayingField();
     }//GEN-LAST:event_hostButtonMouseClicked
 
     private void quitGameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitGameButtonMouseClicked
         deactivatePlayingField();
     }//GEN-LAST:event_quitGameButtonMouseClicked
+
+    private void joinButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinButtonActionPerformed
+        client = true;
+        activatePlayingField();
+    }//GEN-LAST:event_joinButtonActionPerformed
     
-    private void removeColorChooserClones(){
-        int count = colorChooserPanel.getComponentCount();
-        for(int i = 1; i < count; ++i){
-            colorChooserPanel.remove(1);
-        }
-    }
-    private void initColorChooserPrefab(){
-        colorChooserPrefab.removeAllItems();
-        int colorCount = (Integer) colorCountSpinner.getValue();
-        //Color[] colors={Color.white,Color.red,Color.blue,Color.green};
-        //colorChooserPrefab.setModel(new DefaultComboBoxModel<Color>());
-        for(int i = 0; i < colorCount; ++i){
-            colorChooserPrefab.addItem("Farbe" + (i+1));
-        }
-        //colorChooserPrefab.setRenderer(new ComboBoxRenderer());
-        colorChooserPrefab.revalidate();
+    public void sendCode(String code){
+        System.out.println(code);
     }
     
-    private JComboBox getJComboBoxClone(JComboBox prefab){
-        JComboBox colorChooserClone = new JComboBox(prefab.getModel());
-        colorChooserClone.setLocation(prefab.getX(), prefab.getY());
-        colorChooserClone.setSize(prefab.getSize());
-        colorChooserClone.setEditable(prefab.isEditable());
-        colorChooserClone.setRenderer(prefab.getRenderer());
-        return colorChooserClone;
+    private String generateCode(int codeLength, String colors){
+        String code = "";
+        for(int i = 0; i < codeLength; ++i){
+            code += colors.charAt(new Random().nextInt(colors.length()));
+        }
+        return code;
     }
     
     private void activatePlayingField(){
-        removeColorChooserClones();
-        initColorChooserPrefab();
         int codeLength = (Integer) codeLengthSpinner.getValue();
-        for(int i = 0; i <  codeLength - 1; ++i){
-            JComboBox colorChooserClone = getJComboBoxClone(colorChooserPrefab);
-            colorChooserClone.setLocation(colorChooserClone.getLocation().x + (i+1) * colorChooserClone.getSize().width + 5, colorChooserClone.getLocation().y);
-            colorChooserPanel.add(colorChooserClone);
-        }
+        int colorCount = (Integer) colorCountSpinner.getValue();
+        String colors = "0123456789abcdef".substring(0, colorCount);
         tabbedPane.setVisible(false);
         playingField.setVisible(true);
-        colorChooserPanel.revalidate();
-        colorChooserPanel.repaint();
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CodeChooserWindow(me, codeLength, colors, generateCode(codeLength, colors)).setVisible(true);
+            }
+        });
+        
     }
     private void deactivatePlayingField(){
         playingField.setVisible(false);
@@ -541,8 +497,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox codeLengthRandomCheckbox;
     private javax.swing.JSpinner codeLengthSpinner;
     private javax.swing.JLabel colonLabel;
-    private javax.swing.JPanel colorChooserPanel;
-    private javax.swing.JComboBox<String> colorChooserPrefab;
     private javax.swing.JLabel colorCountLabel;
     private javax.swing.JCheckBox colorCountRandomCheckbox;
     private javax.swing.JSpinner colorCountSpinner;
@@ -566,7 +520,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel portLabel;
     private javax.swing.JTextField portTextField;
     private javax.swing.JButton quitGameButton;
-    private javax.swing.JButton sendCodeButton;
     private javax.swing.JSeparator seperator;
     private javax.swing.JTabbedPane tabbedPane;
     private javax.swing.JLabel tryCountLabel;

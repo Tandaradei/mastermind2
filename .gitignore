@@ -20,3 +20,4 @@ manifest.mf
 hs_err_pid*
 build/
 nbproject/
+/dist/
