@@ -10,9 +10,14 @@ package mastermind2;
  *
  * @author laurin.agostini
  */
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.util.Random;
+import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -20,6 +25,8 @@ public class MainWindow extends javax.swing.JFrame {
     
     public boolean client = false;
     MainWindow me = this;
+    
+    String originalCode = "";
     /**
      * Creates new form MyJFrame
      */
@@ -67,6 +74,7 @@ public class MainWindow extends javax.swing.JFrame {
         newWindowHostCheckbox = new javax.swing.JCheckBox();
         playingField = new javax.swing.JPanel();
         quitGameButton = new javax.swing.JButton();
+        historyPane = new javax.swing.JScrollPane();
         menuBar = new javax.swing.JMenuBar();
         exitMenuButton = new javax.swing.JMenu();
         helpMenuButton = new javax.swing.JMenu();
@@ -310,6 +318,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(276, Short.MAX_VALUE)
                 .addComponent(quitGameButton)
                 .addContainerGap())
+            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(playingFieldLayout.createSequentialGroup()
+                    .addComponent(historyPane, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         playingFieldLayout.setVerticalGroup(
             playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -317,6 +329,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap(371, Short.MAX_VALUE)
                 .addComponent(quitGameButton)
                 .addContainerGap())
+            .addGroup(playingFieldLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(playingFieldLayout.createSequentialGroup()
+                    .addComponent(historyPane, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 67, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -412,6 +428,10 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_hostButtonMouseClicked
 
     private void quitGameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quitGameButtonMouseClicked
+        int i = 0;
+        while(historyPane.getComponentCount() > 3) {
+            historyPane.remove(3);
+        }
         deactivatePlayingField();
     }//GEN-LAST:event_quitGameButtonMouseClicked
 
@@ -420,9 +440,62 @@ public class MainWindow extends javax.swing.JFrame {
         activatePlayingField();
     }//GEN-LAST:event_joinButtonActionPerformed
     
-    public void sendCode(String code){
-        System.out.println(code);
+    public void sendCode(String code, int codeLength, String colors){
+        //System.out.println(code);
+        if(client){
+            String response = ServerController.checkKey(originalCode, code);
+            addCodeToHistory(code, response);
+            if(response.length() < codeLength || response.contains("W")){
+                java.awt.EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        new CodeChooserWindow(me, codeLength, colors, code).setVisible(true);
+                    }
+                });
+            }
+        }
         
+    }
+    
+    private void addCodeToHistory(String code, String response) {
+        JPanel entry = new JPanel();
+        entry.setLocation(10, (historyPane.getComponentCount() - 3)  * 60 + 10);
+        entry.setLayout(new GridLayout(0, code.length()+1));
+        entry.setSize(historyPane.getWidth()-20, 60);
+        JLabel historyNumber = new JLabel("" + (historyPane.getComponentCount() - 2));
+        historyNumber.setFont(exitMenuButton.getFont());
+        entry.add(historyNumber);
+        for(int i = 0; i < code.length(); ++i) {
+            JPanel colorBlock = new JPanel();
+            colorBlock.setLocation(i*20, 0);
+            colorBlock.setSize(20, 20);
+            colorBlock.setOpaque(true);
+            colorBlock.setBackground(ComboBoxRenderer.charToColor(code.charAt(i)));
+            colorBlock.setBorder(BorderFactory.createLineBorder(Color.black));
+            entry.add(colorBlock);
+        }
+        JLabel responseLabel = new JLabel("==>");
+        responseLabel.setFont(exitMenuButton.getFont());
+        entry.add(responseLabel);
+        for(int i = 0; i < response.length(); ++i) {
+            JPanel responseBlock = new JPanel();
+            responseBlock.setLocation(i*20, 30);
+            responseBlock.setSize(20, 20);
+            responseBlock.setOpaque(true);
+            if(response.charAt(i) == 'B'){
+                responseBlock.setBackground(Color.BLACK);
+            }
+            else if(response.charAt(i) == 'W'){
+                responseBlock.setBackground(Color.WHITE);
+                
+            }
+            responseBlock.setBorder(BorderFactory.createLineBorder(Color.black));
+            entry.add(responseBlock);
+        }
+        historyPane.add(entry);
+        historyPane.revalidate();
+        //System.out.println("entry added: ");
+        //System.out.println(entry);
+        //System.out.println(historyPane);
     }
     
     private String generateCode(int codeLength, String colors){
@@ -443,7 +516,7 @@ public class MainWindow extends javax.swing.JFrame {
         String colors = "0123456789abcdef".substring(0, colorCount);
         tabbedPane.setVisible(false);
         playingField.setVisible(true);
-        String originalCode = generateCode(codeLength, colors);
+        originalCode = generateCode(codeLength, colors);
         if(aiEnabledCheckbox.isSelected()){
             System.out.println("AI started to guess " + originalCode);
             MastermindAI mmAI = new MastermindAI(codeLength, colors);
@@ -530,6 +603,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JSpinner colorCountSpinner;
     private javax.swing.JMenu exitMenuButton;
     private javax.swing.JMenu helpMenuButton;
+    private javax.swing.JScrollPane historyPane;
     private javax.swing.JToggleButton hostButton;
     private javax.swing.JPanel hostPanel;
     private javax.swing.JLabel ipAdressLabel;

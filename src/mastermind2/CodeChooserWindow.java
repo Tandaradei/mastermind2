@@ -6,9 +6,14 @@
 package mastermind2;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.plaf.basic.BasicComboBoxUI;
 
 /**
  *
@@ -135,12 +140,14 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         for(int i = 0; i < colorChooserPanel.getComponentCount(); ++i){
             code += ((JComboBox)(colorChooserPanel.getComponent(i))).getSelectedItem();
         }
-        mainWindow.sendCode(code);
+        mainWindow.sendCode(code, codeLength, colors);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_okButtonMouseClicked
 
 
     private void initColorChooser(JComboBox colorChooser, String color){
+        colorChooser.addItemListener(new ItemChangeListener());
+        
         colorChooser.setRenderer(new ComboBoxRenderer());
         colorChooser.removeAllItems();
         for(int i = 0; i < colors.length(); ++i){
@@ -159,7 +166,6 @@ public class CodeChooserWindow extends javax.swing.JFrame {
     
     private void initColorChooser(String code){
         initColorChooser(colorChooserPrefab, "" + code.charAt(0));
-        System.out.println(colorChooserPanel.getComponent(0));
         for(int i = 1; i <  codeLength; ++i){
             JLabel labelClone = new JLabel(intToString(i+1));
             labelClone.setFont(colorChooserNumberLabel.getFont());
@@ -178,7 +184,6 @@ public class CodeChooserWindow extends javax.swing.JFrame {
             
             colorChooserPanel.add(colorChooserClone);
             
-        System.out.println(colorChooserPanel.getComponent(i));
         }
         colorChooserPanel.revalidate();
         
