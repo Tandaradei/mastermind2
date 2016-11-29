@@ -445,10 +445,13 @@ public class MainWindow extends javax.swing.JFrame {
         if(client){
             String response = ServerController.checkKey(originalCode, code);
             addCodeToHistory(code, response);
+            final String _code = code;
+			final int _codeLength = codeLength;
+			final String _colors = colors;
             if(response.length() < codeLength || response.contains("W")){
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new CodeChooserWindow(me, codeLength, colors, code).setVisible(true);
+                        new CodeChooserWindow(me, _codeLength, _colors, _code).setVisible(true);
                     }
                 });
             }
@@ -528,11 +531,19 @@ public class MainWindow extends javax.swing.JFrame {
                 System.out.println(code + " -> " + response);
             }while(response.contains("W") || response.length() < codeLength);
         }
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CodeChooserWindow(me, codeLength, colors, generateCode(codeLength, colors)).setVisible(true);
-            }
-        });
+		String code = "";
+		for(int i = 0; i < codeLength; ++i){
+			code += "0";
+		}
+        final String _code = code;
+		final int _codeLength = codeLength;
+		final String _colors = colors;
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new CodeChooserWindow(me, _codeLength, _colors, _code).setVisible(true);
+			}
+		});
+
         
     }
     private void deactivatePlayingField(){
