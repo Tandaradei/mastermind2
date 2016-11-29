@@ -11,6 +11,7 @@ package mastermind2;
  * @author laurin.agostini
  */
 import java.awt.Color;
+import javax.swing.JList;
 import java.awt.GridLayout;
 import java.awt.event.WindowEvent;
 import java.util.Random;
@@ -24,7 +25,11 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class MainWindow extends javax.swing.JFrame {
     
     public boolean client = false;
-    MainWindow me = this;
+    private MainWindow me = this;
+    private JPanel innerHistoryPane = new JPanel();
+    private int x = 0;
+    private int y = 0;
+    private int historyCount = 0;
     
     String originalCode = "";
     /**
@@ -32,6 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow() {
         initComponents();
+        innerHistoryPane.setLayout(new GridLayout(0, 1));
+        historyPane.add(innerHistoryPane);
         playingField.setVisible(false);
     }
 
@@ -432,6 +439,7 @@ public class MainWindow extends javax.swing.JFrame {
         while(historyPane.getComponentCount() > 3) {
             historyPane.remove(3);
         }
+        historyCount = 0;
         deactivatePlayingField();
     }//GEN-LAST:event_quitGameButtonMouseClicked
 
@@ -445,60 +453,86 @@ public class MainWindow extends javax.swing.JFrame {
         if(client){
             String response = ServerController.checkKey(originalCode, code);
             addCodeToHistory(code, response);
-            final String _code = code;
-			final int _codeLength = codeLength;
-			final String _colors = colors;
-            if(response.length() < codeLength || response.contains("W")){
-                java.awt.EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        new CodeChooserWindow(me, _codeLength, _colors, _code).setVisible(true);
-                    }
-                });
+            if(response.length() < codeLength || response.contains("W")) {
+            	startCodeChooserWindow(codeLength, colors, code);
             }
         }
         
     }
     
+    
+    public void setCodeChooserWindowPosition(int x, int y){
+    	this.x = x;
+    	this.y = y;
+    }
+    
+    private void startCodeChooserWindow(int codeLength, String colors, String code){
+    	final String _code = code;
+		final int _codeLength = codeLength;
+		final String _colors = colors;
+		final int _x = this.x;
+		final int _y = this.y;
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new CodeChooserWindow(me, _x, _y, _codeLength, _colors, _code).setVisible(true);
+			}
+		});
+    }
+    
     private void addCodeToHistory(String code, String response) {
         JPanel entry = new JPanel();
-        entry.setLocation(10, (historyPane.getComponentCount() - 3)  * 60 + 10);
+        historyCount++;
+        entry.setLocation(10, historyCount * (60 + 10));
+        innerHistoryPane.setSize(historyPane.getWidth()-20, historyCount * (60 + 10));
         entry.setLayout(new GridLayout(0, code.length()+1));
         entry.setSize(historyPane.getWidth()-20, 60);
-        JLabel historyNumber = new JLabel("" + (historyPane.getComponentCount() - 2));
+        entry.setBackground(Color.GRAY);
+        entry.setBorder(BorderFactory.createLineBorder(Color.black));
+        JLabel historyNumber = new JLabel("" + (historyCount));
         historyNumber.setFont(exitMenuButton.getFont());
         entry.add(historyNumber);
         for(int i = 0; i < code.length(); ++i) {
-            JPanel colorBlock = new JPanel();
+            CircleJPanel colorBlock = new CircleJPanel(ComboBoxRenderer.charToColor(code.charAt(i)));
             colorBlock.setLocation(i*20, 0);
             colorBlock.setSize(20, 20);
             colorBlock.setOpaque(true);
-            colorBlock.setBackground(ComboBoxRenderer.charToColor(code.charAt(i)));
-            colorBlock.setBorder(BorderFactory.createLineBorder(Color.black));
             entry.add(colorBlock);
         }
         JLabel responseLabel = new JLabel("==>");
         responseLabel.setFont(exitMenuButton.getFont());
         entry.add(responseLabel);
         for(int i = 0; i < response.length(); ++i) {
-            JPanel responseBlock = new JPanel();
+            CircleJPanel responseBlock = new CircleJPanel(Color.GRAY);
             responseBlock.setLocation(i*20, 30);
             responseBlock.setSize(20, 20);
             responseBlock.setOpaque(true);
             if(response.charAt(i) == 'B'){
-                responseBlock.setBackground(Color.BLACK);
+                responseBlock.setColor(Color.BLACK);
             }
             else if(response.charAt(i) == 'W'){
-                responseBlock.setBackground(Color.WHITE);
+                responseBlock.setColor(Color.WHITE);
                 
             }
-            responseBlock.setBorder(BorderFactory.createLineBorder(Color.black));
             entry.add(responseBlock);
         }
-        historyPane.add(entry);
+        entry.revalidate();
+        innerHistoryPane.add(entry);
+        innerHistoryPane.revalidate();
+        int width = historyPane.getSize().width;
+        int height = historyPane.getSize().height;
+        playingField.remove(historyPane);
+        historyPane = new javax.swing.JScrollPane(innerHistoryPane);
+        historyPane.setSize(width, height);
         historyPane.revalidate();
-        //System.out.println("entry added: ");
-        //System.out.println(entry);
-        //System.out.println(historyPane);
+        playingField.add(historyPane);
+        playingField.revalidate();
+        
+        System.out.println("entry added: ");
+        System.out.println(entry);
+        System.out.println("innerHistoryPane: ");
+        System.out.println(innerHistoryPane);
+        System.out.println("historyPane: ");
+        System.out.println(historyPane);
     }
     
     private String generateCode(int codeLength, String colors){
@@ -535,14 +569,8 @@ public class MainWindow extends javax.swing.JFrame {
 		for(int i = 0; i < codeLength; ++i){
 			code += "0";
 		}
-        final String _code = code;
-		final int _codeLength = codeLength;
-		final String _colors = colors;
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new CodeChooserWindow(me, _codeLength, _colors, _code).setVisible(true);
-			}
-		});
+		startCodeChooserWindow(codeLength, colors, code);
+        
 
         
     }

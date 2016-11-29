@@ -6,6 +6,7 @@
 package mastermind2;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,12 +28,13 @@ public class CodeChooserWindow extends javax.swing.JFrame {
     /**
      * Creates new form CodeChooserWindow
      */
-    public CodeChooserWindow(MainWindow mainWindow, int codeLength, String colors, String code) {
+    public CodeChooserWindow(MainWindow mainWindow, int x, int y, int codeLength, String colors, String code) {
         this.mainWindow = mainWindow;
+        this.setLocation(x, y);
         this.codeLength = codeLength;
         this.colors = colors;
         initComponents();
-        initColorChooser(code);
+        initColorChooserPanel(code);
         this.setSize((codeLength+1) * (colorChooserPrefab.getSize().width + 5), this.getSize().height);
         
     }
@@ -140,12 +142,17 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         for(int i = 0; i < colorChooserPanel.getComponentCount(); ++i){
             code += ((JComboBox)(colorChooserPanel.getComponent(i))).getSelectedItem();
         }
+
+        mainWindow.setCodeChooserWindowPosition(getLocation().x, getLocation().y);
         mainWindow.sendCode(code, codeLength, colors);
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_okButtonMouseClicked
 
 
     private void initColorChooser(JComboBox colorChooser, String color){
+    	colorChooser.setFont(new java.awt.Font("Segoe UI", 0, 11));
+    	colorChooser.setEditable(false);
+    	colorChooser.setSize(35,25);
         colorChooser.addItemListener(new ItemChangeListener());
         
         colorChooser.setRenderer(new ComboBoxRenderer());
@@ -164,7 +171,8 @@ public class CodeChooserWindow extends javax.swing.JFrame {
         return string;
     }
     
-    private void initColorChooser(String code){
+    private void initColorChooserPanel(String code){
+    	colorChooserPanel.setLayout(new GridLayout(1, 0));
         initColorChooser(colorChooserPrefab, "" + code.charAt(0));
         for(int i = 1; i <  codeLength; ++i){
             JLabel labelClone = new JLabel(intToString(i+1));
@@ -176,10 +184,6 @@ public class CodeChooserWindow extends javax.swing.JFrame {
             
             JComboBox colorChooserClone = new JComboBox();
             initColorChooser(colorChooserClone, "" + code.charAt(i));
-            colorChooserClone.setSize(colorChooserPrefab.getSize());
-            colorChooserClone.setEditable(colorChooserPrefab.isEditable());
-            colorChooserClone.setRenderer(colorChooserPrefab.getRenderer());
-            colorChooserClone.setFont(colorChooserPrefab.getFont());
             colorChooserClone.setLocation(colorChooserPrefab.getLocation().x + i * colorChooserPrefab.getSize().width +(i-1)*5 + 5, colorChooserPrefab.getLocation().y);
             
             colorChooserPanel.add(colorChooserClone);
